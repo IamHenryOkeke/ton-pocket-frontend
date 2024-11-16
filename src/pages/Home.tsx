@@ -5,8 +5,9 @@ import { RiBatterySaverLine } from "react-icons/ri";
 import Button from "../components/button";
 import TransactionPreviewCard from "../components/transaction-preview-card";
 import Navbar from "../components/navbar";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import useOnClickOutside from "../hooks/useClickOutside";
 
 export default function Home() {
   const [showQuickMenu, setShowQuickMenu] = useState(false);
@@ -25,11 +26,7 @@ export default function Home() {
           <FaPlus size={20} onClick={() => setShowQuickMenu(!showQuickMenu)} />
           <FaBell size={20} />
         </div>
-        <div className={`text-sm ${showQuickMenu ? "absolute" : "hidden"} space-y-2 right-8 top-8 px-2 py-3 bg-white rounded-lg`}>
-          <Link to="/app/tip" className="flex items-center gap-1"><RiBatterySaverLine className="h-5 w-5" />Save</Link>
-          <Link to="/app/tip" className="flex items-center gap-1"><GoPlusCircle className="h-5 w-5" />Create a tip pocket</Link>
-          <Link to="/app/tip" className="flex items-center gap-1"><img src="/src/assets/TipDark.svg" alt="icon" className="h-5 w-5" />Add to tip pocket</Link>
-        </div>
+        <QuickMenu isOpen={showQuickMenu} setIsOpen={setShowQuickMenu} />
       </div>
       <div className="bg-white/30 rounded-2xl p-6 flex justify-between">
         <div>
@@ -90,5 +87,31 @@ export default function Home() {
       </div>
       <Navbar />
     </main>
+  )
+}
+
+type QuickMenuType = {
+  isOpen: boolean;
+  setIsOpen: any;
+}
+
+function QuickMenu({ isOpen, setIsOpen }: QuickMenuType) {
+  const sideNavRef = useRef<any>();
+
+  useOnClickOutside(sideNavRef, () => {
+    setIsOpen(false);
+  });
+  return (
+    <>
+      {
+        isOpen && (
+          <div className="text-sm absolute space-y-2 right-8 top-8 px-2 py-3 bg-white rounded-lg">
+            <Link to="/app/tip" className="flex items-center gap-1"><RiBatterySaverLine className="h-5 w-5" />Save</Link>
+            <Link to="/app/tip" className="flex items-center gap-1"><GoPlusCircle className="h-5 w-5" />Create a tip pocket</Link>
+            <Link to="/app/tip" className="flex items-center gap-1"><img src="/src/assets/TipDark.svg" alt="icon" className="h-5 w-5" />Add to tip pocket</Link>
+          </div>
+        )
+      }
+    </>
   )
 }
