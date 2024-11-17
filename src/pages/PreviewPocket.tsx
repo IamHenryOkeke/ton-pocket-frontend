@@ -12,7 +12,7 @@ export default function PreviewPocket() {
   const { pocketName, image } = location.state || {};
 
   const [imgSrc, setImgSrc] = useState<any>("");
-  const [isCreated, setIsCreated] = useState(false);
+  const [isCreated] = useState(false);
 
   if (image) {
     const reader = new FileReader();

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 interface TelegramUser {
   id: number;
@@ -10,7 +10,7 @@ interface TelegramUser {
 }
 
 export function useTelegramUser() {
-  const [user, setUser] = useState<TelegramUser | null>(null);
+  const [user] = useState<TelegramUser | null>(null);
 
   // useEffect(() => {
   //   const telegram: any = window.Telegram?.WebApp;

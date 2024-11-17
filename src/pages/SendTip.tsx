@@ -3,7 +3,7 @@ import BackButton from '../components/back-button';
 import { useState } from 'react';
 
 export default function SendTip() {
-  const [isSent, setIsSent] = useState(false);
+  const [isSent] = useState(false);
   const { userName } = useParams();
   return (
     <main className="h-screen px-4 py-10 pb-10 bg-primaryDark/20">

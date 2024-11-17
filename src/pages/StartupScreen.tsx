@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function StartupScreen() {
   const [isLoading, setIsLoading] = useState(true);
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn] = useState(true);
 
   const navigate = useNavigate();
 
