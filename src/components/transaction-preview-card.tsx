@@ -17,7 +17,7 @@ export default function TransactionPreviewCard({ description, transactionType, s
     <div className="flex justify-between pt-3">
       <div className="flex items-center gap-2">
         <div className={`${transactionType === "debit" ? "bg-[#6A9AF9]" : "bg-[#C0C0C0]"} rounded-full h-12 w-12 flex items-center justify-center`}>
-          <img src={`/src/assets/${transactionType === "debit" ? "debitarrow.svg" :"creditarrow.svg"}`} alt="" className="h-5 w-5" />
+          <img src={`../../src/assets/${transactionType === "debit" ? "debitarrow.svg" :"creditarrow.svg"}`} alt="" className="h-5 w-5" />
         </div>
         <div className="flex flex-col gap-0.5">
           <span>{description}</span>
