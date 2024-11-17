@@ -12,15 +12,15 @@ interface TelegramUser {
 export function useTelegramUser() {
   const [user, setUser] = useState<TelegramUser | null>(null);
 
-  useEffect(() => {
-    const telegram = window.Telegram?.WebApp;
+  // useEffect(() => {
+  //   const telegram: any = window.Telegram?.WebApp;
 
-    if (telegram?.initDataUnsafe?.user) {
-      setUser(telegram.initDataUnsafe.user);
-    } else {
-      console.warn("Telegram user information not available.");
-    }
-  }, []);
+  //   if (telegram?.initDataUnsafe?.user) {
+  //     setUser(telegram.initDataUnsafe.user);
+  //   } else {
+  //     console.warn("Telegram user information not available.");
+  //   }
+  // }, []);
 
   return user;
 }
