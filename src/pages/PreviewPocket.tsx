@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import BackButton from '../components/back-button';
@@ -14,7 +12,7 @@ export default function PreviewPocket() {
   const { pocketName, image } = location.state || {};
 
   const [imgSrc, setImgSrc] = useState<any>("");
-  const [isCreated, setIsCreated] = useState(true);
+  const [isCreated, setIsCreated] = useState(false);
 
   if (image) {
     const reader = new FileReader();

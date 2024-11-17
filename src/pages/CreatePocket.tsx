@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
-
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import BackButton from '../components/back-button';
@@ -32,7 +29,7 @@ export default function CreatePocket() {
         validationSchema={validationSchema}
         onSubmit={(values) => {
           // console.log(values);
-          navigate("/app/tip/preview-pocket", { state: { pocketName: values.pocketName, image: values.image } })
+          navigate("/app/pocket/preview", { state: { pocketName: values.pocketName, image: values.image } })
         }}
       >
         {({ setFieldValue, isValid, dirty }) => (

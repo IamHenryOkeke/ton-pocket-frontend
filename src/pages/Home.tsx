@@ -48,18 +48,18 @@ export default function Home() {
           Explore!
         </h3>
         <div className="flex gap-5">
-          <Link to="/app/tip/create-pocket" className="w-full flex flex-col gap-1 p-3 font-medium text-sm bg-white/30 border-2 border-white/30 rounded-[10px]">
+          <Link to="/app/pocket/create" className="w-full flex flex-col gap-1 p-3 font-medium text-sm bg-white/30 border-2 border-white/30 rounded-[10px]">
             <GoPlusCircle className="h-5 w-5" />
             <p className="text-start">
               Create <br /> tip pocket
             </p>
           </Link>
-          <button className="w-full flex flex-col gap-1 p-3 font-medium text-sm bg-primaryDark text-white border-2 border-white/30 rounded-[10px]">
+          <Link to="/app/pocket/tip" className="w-full flex flex-col gap-1 p-3 font-medium text-sm bg-primaryDark text-white border-2 border-white/30 rounded-[10px]">
             <img src="/src/assets/Tip.svg" alt="" className="h-5 w-5" />
             <p className="text-start">
               Tip <br /> a friend
             </p>
-          </button>
+          </Link>
           <Link to="/app/asset-swap" className="w-full flex flex-col gap-1 p-3 font-medium text-sm bg-primaryDark text-white border-2 border-white/30 rounded-[10px]">
             <IoSwapVerticalOutline className="h-5 w-5" />
             <p className="text-start">

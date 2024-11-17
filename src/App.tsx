@@ -3,6 +3,8 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
+import { TonConnectUIProvider } from '@tonconnect/ui-react';
+
 import Home from "./pages/Home";
 import AppLayout from "./layouts/AppLayout";
 import CreatePocket from "./pages/CreatePocket";
@@ -11,6 +13,9 @@ import StartupScreen from "./pages/StartupScreen";
 import GetStarted from "./pages/GetStarted";
 import Welcome from "./pages/Welcome";
 import AssetSwap from "./pages/AssetSwap";
+import PreviewTipDetails from "./pages/PreviewTipDetails";
+import TipHome from "./pages/TipHome";
+import SendTip from "./pages/SendTip";
 
 const router = createBrowserRouter([
   {
@@ -38,20 +43,33 @@ const router = createBrowserRouter([
         element: <AssetSwap />,
       },
       {
-        path: "tip",
+        path: "pocket",
         children: [
           {
-            path: "create-pocket",
+            path: "create",
             element: <CreatePocket />,
           },
           {
-            path: "preview-pocket",
+            path: "preview",
             element: <PreviewPocket />,
           },
           {
-            path: "gift",
-            element: <>a friend</>
-          }
+            path: "tip",
+            children: [
+              {
+                path: "",
+                element: <TipHome />,
+              },
+              {
+                path: ":userName",
+                element: <PreviewTipDetails />
+              },
+              {
+                path: ":userName/send-tip",
+                element: <SendTip />
+              }
+            ]
+          },
         ]
       }
     ]
@@ -61,7 +79,9 @@ const router = createBrowserRouter([
 export default function App() {
   return (
     <div className="font-inter">
-      <RouterProvider router={router} />
+      <TonConnectUIProvider manifestUrl="https://ton-pocket-frontend.vercel.app/manifest.json">
+        <RouterProvider router={router} />
+      </TonConnectUIProvider>
     </div>
   )
 }

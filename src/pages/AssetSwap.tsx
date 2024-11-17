@@ -1,6 +1,7 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import BackButton from "../components/back-button";
 import { IoSwapVerticalOutline } from "react-icons/io5";
+import { useTonAddress, useTonConnectUI } from "@tonconnect/ui-react";
 
 type Token = "USDT" | "TON";
 
@@ -11,9 +12,12 @@ export default function AssetSwap() {
   const [toAmount, setToAmount] = useState<string>("");
   const [invalidInput, setInvalidInput] = useState<boolean>(true);
 
+  const userAddress = useTonAddress();
+  const [tonConnectUI] = useTonConnectUI();
+
   const [balances, setBalances] = useState({
-    USDT: 1000, // Example balance for USDT
-    TON: 500,   // Example balance for TON
+    USDT: 1000,
+    TON: 500
   });
 
   const switchTokens = () => {
@@ -67,7 +71,7 @@ export default function AssetSwap() {
 
   // Mock conversion rates
   const conversionRates = {
-    USDT_TO_TON: 0.5, 
+    USDT_TO_TON: 0.5,
     TON_TO_USDT: 2,
   };
 
@@ -142,16 +146,29 @@ export default function AssetSwap() {
             </button>
           </div>
         </div>
-        <button
-          onClick={handleSwap}
-          disabled={invalidInput}
-          className={`font-orbitron w-full px-4 py-2 text-white rounded-md bg-primaryDark  disabled:opacity-50 disabled:cursor-not-allowed`}
-        >
-          {/* {
+        {
+          userAddress ?
+            <button
+              onClick={handleSwap}
+              disabled={invalidInput}
+              className={`font-orbitron w-full px-4 py-2 text-white rounded-md bg-primaryDark  disabled:opacity-50 disabled:cursor-not-allowed`}
+            >
+              {/* {
             invalidInput ? "Insufficient Fund" : "Swap"
           } */}
-          Swap
-        </button>
+              Swap
+            </button>
+            :
+            <button
+            onClick={() => tonConnectUI.openModal()}
+              className={`font-orbitron w-full px-4 py-2 text-white rounded-md bg-primaryDark  disabled:opacity-50 disabled:cursor-not-allowed`}
+            >
+              {/* {
+            invalidInput ? "Insufficient Fund" : "Swap"
+          } */}
+              Connect Wallet
+            </button>
+        }
       </div>
     </main>
   );
