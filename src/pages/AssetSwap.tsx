@@ -23,8 +23,8 @@ export default function AssetSwap() {
   const switchTokens = () => {
     setFromToken(toToken);
     setToToken(fromToken);
-    setFromAmount(toAmount);
-    setToAmount(fromAmount);
+    // setFromAmount(toAmount);
+    // setToAmount(fromAmount);
   };
 
   const handleFromTokenInputChange = (e: ChangeEvent<HTMLInputElement>) => {
