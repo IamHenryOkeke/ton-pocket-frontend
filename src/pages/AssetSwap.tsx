@@ -1,7 +1,7 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import BackButton from "../components/back-button";
 import { IoSwapVerticalOutline } from "react-icons/io5";
-import { TonConnectButton, useTonAddress } from "@tonconnect/ui-react";
+import { useTonAddress, useTonConnectUI } from "@tonconnect/ui-react";
 
 type Token = "USDT" | "TON";
 
@@ -13,7 +13,7 @@ export default function AssetSwap() {
   const [invalidInput, setInvalidInput] = useState<boolean>(true);
 
   const userAddress = useTonAddress();
-  // const [tonConnectUI] = useTonConnectUI();
+  const [tonConnectUI] = useTonConnectUI();
 
   const [balances, setBalances] = useState({
     USDT: 1000,
@@ -146,6 +146,7 @@ export default function AssetSwap() {
             </button>
           </div>
         </div>
+        {userAddress}
         {
           userAddress ?
             <button
@@ -153,13 +154,15 @@ export default function AssetSwap() {
               disabled={invalidInput}
               className={`font-orbitron w-full px-4 py-2 text-white rounded-md bg-primaryDark  disabled:opacity-50 disabled:cursor-not-allowed`}
             >
-              {/* {
-            invalidInput ? "Insufficient Fund" : "Swap"
-          } */}
               Swap
             </button>
             :
-            <TonConnectButton />
+            <button
+              onClick={() => tonConnectUI.openModal()}
+              className={`font-orbitron w-full px-4 py-2 text-white rounded-md bg-primaryDark  disabled:opacity-50 disabled:cursor-not-allowed`}
+            >
+              Connect Wallet
+            </button>
         }
       </div>
     </main>
