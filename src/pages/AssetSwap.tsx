@@ -1,7 +1,7 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import BackButton from "../components/back-button";
 import { IoSwapVerticalOutline } from "react-icons/io5";
-import { useTonAddress, useTonConnectUI } from "@tonconnect/ui-react";
+import { TonConnectButton, useTonAddress, useTonConnectUI } from "@tonconnect/ui-react";
 
 type Token = "USDT" | "TON";
 
@@ -159,15 +159,7 @@ export default function AssetSwap() {
               Swap
             </button>
             :
-            <button
-            onClick={() => tonConnectUI.openModal()}
-              className={`font-orbitron w-full px-4 py-2 text-white rounded-md bg-primaryDark  disabled:opacity-50 disabled:cursor-not-allowed`}
-            >
-              {/* {
-            invalidInput ? "Insufficient Fund" : "Swap"
-          } */}
-              Connect Wallet
-            </button>
+            <TonConnectButton />
         }
       </div>
     </main>
