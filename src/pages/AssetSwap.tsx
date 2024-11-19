@@ -1,7 +1,7 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import BackButton from "../components/back-button";
 import { IoSwapVerticalOutline } from "react-icons/io5";
-import { TonConnectButton, useTonAddress, useTonConnectUI } from "@tonconnect/ui-react";
+import { TonConnectButton, useTonAddress } from "@tonconnect/ui-react";
 
 type Token = "USDT" | "TON";
 
@@ -13,7 +13,7 @@ export default function AssetSwap() {
   const [invalidInput, setInvalidInput] = useState<boolean>(true);
 
   const userAddress = useTonAddress();
-  const [tonConnectUI] = useTonConnectUI();
+  // const [tonConnectUI] = useTonConnectUI();
 
   const [balances, setBalances] = useState({
     USDT: 1000,
