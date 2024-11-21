@@ -9,21 +9,22 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import useOnClickOutside from "../hooks/useClickOutside";
 import WebApp from "@twa-dev/sdk";
+import { TelegramUser } from "../lib/types";
 
 export default function Home() {
   const [showQuickMenu, setShowQuickMenu] = useState(false);
-  const [user, setUser] = useState("");
+  const [user, setUser] = useState<TelegramUser>();
   useEffect(() => {
-    const username = WebApp.initDataUnsafe.user?.username || ""
+    const username = WebApp.initDataUnsafe.user as TelegramUser
     setUser(username);
   }, [])
   return (
     <main onClick={() => { if (showQuickMenu) setShowQuickMenu(false) }} className="px-4 pt-10 pb-20 bg-primaryDark/20 space-y-5">
       <div className="relative flex justify-between">
         <div className="flex items-center gap-2">
-          <img src="/Profile.svg" alt="" />
+          <img src={user?.photo_url} alt="" />
           <div className="flex flex-col text-xs font-medium">
-            <span>Hi, {user}</span>
+            <span>Hi, {user?.username}</span>
             <span>Wellcome Back</span>
           </div>
         </div>
