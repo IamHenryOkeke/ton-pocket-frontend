@@ -108,7 +108,7 @@ function QuickMenu({ isOpen, setIsOpen }: QuickMenuType) {
           <div className="text-sm absolute space-y-2 right-8 top-8 px-2 py-3 bg-white rounded-lg">
             <Link to="/app/tip" className="flex items-center gap-1"><RiBatterySaverLine className="h-5 w-5" />Save</Link>
             <Link to="/app/tip" className="flex items-center gap-1"><GoPlusCircle className="h-5 w-5" />Create a tip pocket</Link>
-            <Link to="/app/tip" className="flex items-center gap-1"><img src="/src/assets/TipDark.svg" alt="icon" className="h-5 w-5" />Add to tip pocket</Link>
+            <Link to="/app/tip" className="flex items-center gap-1"><img src="/TipDark.svg" alt="icon" className="h-5 w-5" />Add to tip pocket</Link>
           </div>
         )
       }
