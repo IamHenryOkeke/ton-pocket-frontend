@@ -22,9 +22,9 @@ export default function Home() {
     <main onClick={() => { if (showQuickMenu) setShowQuickMenu(false) }} className="px-4 pt-10 pb-20 bg-primaryDark/20 space-y-5">
       <div className="relative flex justify-between">
         <div className="flex items-center gap-2">
-          <img src={user?.photo_url} alt="" />
+          <img src={user?.photo_url || "/Profile.svg"} alt="Telegram" className="h-10 w-10 rounded-full"/>
           <div className="flex flex-col text-xs font-medium">
-            <span>Hi, {user?.username}</span>
+            <span>Hi, {user?.username || user?.first_name || "User"}</span>
             <span>Wellcome Back</span>
           </div>
         </div>
