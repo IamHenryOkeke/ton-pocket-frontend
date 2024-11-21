@@ -14,9 +14,8 @@ export default function Home() {
   const [showQuickMenu, setShowQuickMenu] = useState(false);
   const [user, setUser] = useState("");
   useEffect(() => {
-    const user = WebApp.initData
-    setUser(user)
-    console.log(user)
+    const username = WebApp.initDataUnsafe.user?.username || ""
+    setUser(username);
   }, [])
   return (
     <main onClick={() => { if (showQuickMenu) setShowQuickMenu(false) }} className="px-4 pt-10 pb-20 bg-primaryDark/20 space-y-5">
@@ -24,8 +23,8 @@ export default function Home() {
         <div className="flex items-center gap-2">
           <img src="/Profile.svg" alt="" />
           <div className="flex flex-col text-xs font-medium">
-            <span>Hi, Geezie_001</span>
-            <span>Wellcome Back {user}</span>
+            <span>Hi, {user}</span>
+            <span>Wellcome Back</span>
           </div>
         </div>
         <div className="flex gap-2 items-center">
