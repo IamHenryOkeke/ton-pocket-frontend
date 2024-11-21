@@ -79,7 +79,7 @@ const router = createBrowserRouter([
 export default function App() {
   return (
     <div className="font-inter">
-      <TonConnectUIProvider manifestUrl={`${process.env.NODE_ENV === "development" ? "http://localhost:3000/" : "https://ton-pocket-frontend.vercel.app/"}tonconnect-manifest.json`}>
+      <TonConnectUIProvider manifestUrl="https://ton-pocket-frontend.vercel.app/manifest.json">
         <RouterProvider router={router} />
       </TonConnectUIProvider>
     </div>
