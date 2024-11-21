@@ -1,26 +1,14 @@
-import { useState } from 'react';
-
-interface TelegramUser {
-  id: number;
-  first_name: string;
-  last_name?: string;
-  username?: string;
-  language_code?: string;
-  photo_url?: string;
-}
+import WebApp from '@twa-dev/sdk';
+import { useEffect, useState } from 'react';
+import { TelegramUser } from '../lib/types';
 
 export function useTelegramUser() {
-  const [user] = useState<TelegramUser | null>(null);
+  const [user, setUser] = useState<TelegramUser | null>(null);
 
-  // useEffect(() => {
-  //   const telegram: any = window.Telegram?.WebApp;
-
-  //   if (telegram?.initDataUnsafe?.user) {
-  //     setUser(telegram.initDataUnsafe.user);
-  //   } else {
-  //     console.warn("Telegram user information not available.");
-  //   }
-  // }, []);
+  useEffect(() => {
+    const username = WebApp.initDataUnsafe.user as TelegramUser
+    setUser(username);
+  }, [])
 
   return user;
 }

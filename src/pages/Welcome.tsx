@@ -1,4 +1,8 @@
+import { useNavigate } from "react-router-dom";
+
 export default function Welcome() {
+  const navigate = useNavigate();
+
   return (
     <main className='px-4 py-10 space-y-4'>
       <h1 className="text-2xl">Welcome to <span className='font-orbitron font-bold'>TonPocket!</span> 👋🏽</h1>
@@ -27,7 +31,7 @@ export default function Welcome() {
         TonPocket combines the familiarity of Telegram with the security of decentralized finance. As a Telegram mini app, TonPocket is right at your fingertips—no complicated setups, just straightforward financial management in an app you already know and love.
         Take control of your financial journey with TonPocket. Let's get started!
       </p>
-      <button className="mt-10 font-extrabold text-xl font-orbitron w-full px-4 py-2 text-white rounded-md bg-primaryDark">
+      <button onClick={() => navigate("/get-started")} className="mt-10 font-extrabold text-xl font-orbitron w-full px-4 py-2 text-white rounded-md bg-primaryDark">
         Get started
       </button>
     </main>

@@ -1,19 +1,20 @@
+import { useTonAddress } from "@tonconnect/ui-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function StartupScreen() {
   const [isLoading, setIsLoading] = useState(true);
-  const [isLoggedIn] = useState(true);
+  const userAddress = useTonAddress();
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 3000); // Simulate loading for 3 seconds
+    const timer = setTimeout(() => setIsLoading(false), 3500);
     return () => clearTimeout(timer);
   }, []);
 
   if (!isLoading) {
-    if (isLoggedIn) {
+    if (userAddress) {
       navigate("/app/home");
       return
     }

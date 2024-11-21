@@ -5,19 +5,15 @@ import { RiBatterySaverLine } from "react-icons/ri";
 import Button from "../components/button";
 import TransactionPreviewCard from "../components/transaction-preview-card";
 import Navbar from "../components/navbar";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import useOnClickOutside from "../hooks/useClickOutside";
-import WebApp from "@twa-dev/sdk";
-import { TelegramUser } from "../lib/types";
+import { useTelegramUser } from "../hooks/useTelegramUser";
 
 export default function Home() {
   const [showQuickMenu, setShowQuickMenu] = useState(false);
-  const [user, setUser] = useState<TelegramUser>();
-  useEffect(() => {
-    const username = WebApp.initDataUnsafe.user as TelegramUser
-    setUser(username);
-  }, [])
+  const user = useTelegramUser();
+
   return (
     <main onClick={() => { if (showQuickMenu) setShowQuickMenu(false) }} className="px-4 pt-10 pb-20 bg-primaryDark/20 space-y-5">
       <div className="relative flex justify-between">
