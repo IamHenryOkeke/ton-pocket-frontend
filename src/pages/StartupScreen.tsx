@@ -23,7 +23,7 @@ export default function StartupScreen() {
   return (
     <main>
       <div className="h-screen flex items-center flex-col justify-center text-center bg-gradient-to-r from-[#4c6ef5] to-[#b3e5fc]">
-        <img src="../../src/assets/Logo.svg" alt="Logo" />
+        <img src="/Logo.svg" alt="Logo" />
       </div>
       <div className="mt-6">
         <div className="loader w-8 h-8 border-4 border-white border-t-transparent rounded-full animate-spin"></div>

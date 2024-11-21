@@ -15,7 +15,7 @@ export default function Home() {
     <main onClick={() => { if (showQuickMenu) setShowQuickMenu(false) }} className="px-4 pt-10 pb-20 bg-primaryDark/20 space-y-5">
       <div className="relative flex justify-between">
         <div className="flex items-center gap-2">
-          <img src="../../src/assets/Profile.svg" alt="" />
+          <img src="/Profile.svg" alt="" />
           <div className="flex flex-col text-xs font-medium">
             <span>Hi, Geezie_001</span>
             <span>Wellcome Back</span>
@@ -55,7 +55,7 @@ export default function Home() {
             </p>
           </Link>
           <Link to="/app/pocket/tip" className="w-full flex flex-col gap-1 p-3 font-medium text-sm bg-primaryDark text-white border-2 border-white/30 rounded-[10px]">
-            <img src="../../src/assets/Tip.svg" alt="" className="h-5 w-5" />
+            <img src="/Tip.svg" alt="" className="h-5 w-5" />
             <p className="text-start">
               Tip <br /> a friend
             </p>

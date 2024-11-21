@@ -146,7 +146,6 @@ export default function AssetSwap() {
             </button>
           </div>
         </div>
-        {userAddress}
         {
           userAddress ?
             <button
