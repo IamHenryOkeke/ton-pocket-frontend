@@ -5,12 +5,19 @@ import { RiBatterySaverLine } from "react-icons/ri";
 import Button from "../components/button";
 import TransactionPreviewCard from "../components/transaction-preview-card";
 import Navbar from "../components/navbar";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import useOnClickOutside from "../hooks/useClickOutside";
+import WebApp from "@twa-dev/sdk";
 
 export default function Home() {
   const [showQuickMenu, setShowQuickMenu] = useState(false);
+  const [user, setUser] = useState("");
+  useEffect(() => {
+    const user = WebApp.initData
+    setUser(user)
+    console.log(user)
+  }, [])
   return (
     <main onClick={() => { if (showQuickMenu) setShowQuickMenu(false) }} className="px-4 pt-10 pb-20 bg-primaryDark/20 space-y-5">
       <div className="relative flex justify-between">
@@ -18,7 +25,7 @@ export default function Home() {
           <img src="/Profile.svg" alt="" />
           <div className="flex flex-col text-xs font-medium">
             <span>Hi, Geezie_001</span>
-            <span>Wellcome Back</span>
+            <span>Wellcome Back {user}</span>
           </div>
         </div>
         <div className="flex gap-2 items-center">
