@@ -1,79 +1,66 @@
 import { useTonAddress, useTonConnectUI } from "@tonconnect/ui-react";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useTelegramUser } from "../hooks/useTelegramUser";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { API_ROUTES, customAxios } from "../routes/apiRoutes";
-import { AppUser, ContractPocket } from "../lib/types";
 import { mockGetUserPocket } from "../mock/contractCalls/mockPocketsContract";
 import Swal from "sweetalert2";
+import useAppState from "../hooks/useAppState";
 
 export default function GetStarted() {
-  // const navigate = useNavigate();
   const user = useTelegramUser();
-  const [appUser, setAppUser] = useState<AppUser | null>();
-  const [userChecked, setUserChecked] = useState(false); // We use this to know when the backed has checked if a user exists.
-  const [pocketChecked, setPocketChecked] = useState(false); // So we know when the smart contract has been called to retrieve user wallet.
-
+  const navigate = useNavigate();
   const [tonConnectUI] = useTonConnectUI();
   const connectedAddress = useTonAddress();
-  const [pocketDetails, setPocketDetails] = useState<ContractPocket | null>();
 
-  // Step 1: Check backend for user details
-  useEffect(() => {
-    // Get User Details on the backend
-    if (user?.id)
-      (async () => {
-        try {
-          const { data } = await customAxios().get(
-            API_ROUTES.user.get + user.id
-          );
-          console.log(data);
-          setAppUser(data);
-          setUserChecked(true);
-        } catch (error) {
-          console.log(error);
-          const errMsg =
-            (error as any)?.response?.data?.error?.message ||
-            (error as any)?.message ||
-            "Something went wrong";
+  const pocketDetails = useAppState((state) => state.pocketDetails);
+  const setPocketDetails = useAppState((state) => state.setPocketDetails);
+  const userChecked = useAppState((state) => state.userChecked);
+  const pocketChecked = useAppState((state) => state.pocketChecked);
 
-          if (errMsg === "User not found") {
-            setUserChecked(true);
-            return;
-          }
-
-          Swal.fire({
-            icon: "error",
-            text: errMsg,
-          });
-        }
-      })();
-  }, [user?.id]);
+  const appUser = useAppState((state) => state.appUser);
+  const setAppUser = useAppState((state) => state.setAppUser);
+  const setPocketChecked = useAppState((state) => state.setPocketChecked);
 
   // Todo: Remove this mock function.
-  // Step2: Get pocket details from smart contract when wallet gets connected.
+  // Step1: Get pocket details from smart contract when wallet gets connected.
   useEffect(() => {
-    if (connectedAddress && userChecked)
+    if (connectedAddress && userChecked && !pocketChecked)
       (async () => {
         const details = await mockGetUserPocket(
           connectedAddress,
           appUser ? false : true
         );
 
-        console.log(details);
         setPocketDetails(details);
+        console.log("Pocket Checked called");
         setPocketChecked(true);
       })();
-  }, [appUser, connectedAddress, userChecked]);
+  }, [
+    appUser,
+    connectedAddress,
+    pocketChecked,
+    setPocketChecked,
+    setPocketDetails,
+    userChecked,
+  ]);
 
-  // Todo: Figure out what wallet balance shows. Field is optional on the backend.
-  // Step3: Update user on backend with latest details.
+  // Todo: Figure out what wallet balance shows. This field is optional on the backend.
+  // Step2: Update user on backend with latest details.
   useEffect(() => {
     if (pocketChecked)
       if (appUser) {
         // If appUser: then we update the user accordingly
         (async () => {
           try {
+            console.table({
+              username: appUser.username,
+              phoneNumber: appUser?.phoneNumber,
+              connectedAddress,
+              pocketUniqueId: pocketDetails?.unique_id,
+              pocketBalance: pocketDetails?.balance,
+            });
+
             const { data } = await customAxios().post(
               API_ROUTES.user.update + appUser.telegramUserId,
               {
@@ -84,7 +71,9 @@ export default function GetStarted() {
                 pocketBalance: pocketDetails?.balance,
               }
             );
-            console.log(data);
+
+            setAppUser(data.data);
+            navigate("/app/home");
           } catch (error) {
             console.log(error);
             const errMsg =
@@ -112,7 +101,9 @@ export default function GetStarted() {
                 pocketBalance: pocketDetails?.balance,
               }
             );
-            console.log(data);
+
+            setAppUser(data);
+            navigate("/app/home");
           } catch (error) {
             console.log(error);
             const errMsg =
@@ -127,15 +118,14 @@ export default function GetStarted() {
           }
         })();
       }
-
-    // on wallet connect navigate user to app/home
-    // navigate("/app/home")
   }, [
     appUser,
     connectedAddress,
+    navigate,
     pocketChecked,
     pocketDetails?.balance,
     pocketDetails?.unique_id,
+    setAppUser,
     user?.id,
     user?.username,
   ]);
