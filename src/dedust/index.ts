@@ -11,7 +11,7 @@ const TON = Asset.native();
 const USDT = Asset.jetton(USDT_ADDRESS);
 
 
-export const swapTonToUsdt = async (senderAddress: Sender, value: string) => {
+export const swapTonToUsdt = async (senderAddress: any, value: string) => {
   const pool = tonClient.open(await factory.getPool(PoolType.VOLATILE, [TON, USDT]));
   
   // Check if pool exists:
@@ -26,9 +26,11 @@ export const swapTonToUsdt = async (senderAddress: Sender, value: string) => {
 
   const amountIn = toNano(value);
 
-  await tonVault.sendSwap(senderAddress, {
+  const res = await tonVault.sendSwap(senderAddress, {
     poolAddress: pool.address,
     amount: amountIn,
     gasAmount: toNano("0.25"),
   });
+
+  return res;
 }

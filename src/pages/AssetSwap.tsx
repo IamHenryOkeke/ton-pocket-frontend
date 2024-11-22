@@ -2,6 +2,8 @@ import { ChangeEvent, useEffect, useState } from "react";
 import BackButton from "../components/back-button";
 import { IoSwapVerticalOutline } from "react-icons/io5";
 import { useTonAddress, useTonConnectUI } from "@tonconnect/ui-react";
+import { swapTonToUsdt } from "../dedust";
+import { Address } from "@ton/ton";
 
 type Token = "USDT" | "TON";
 
@@ -52,11 +54,18 @@ export default function AssetSwap() {
   //   }
   // };
 
-  const handleSwap = () => {
+  const handleSwap = async() => {
     if (fromAmount === '' || Number(fromAmount) <= 0) {
       alert('Please enter a valid amount to swap.');
       return;
     }
+
+    // const res = await swapTonToUsdt({
+    //   address: Address.parse(userAddress),
+    //   // send(args) {
+        
+    //   // },
+    // },"0.5")
 
     alert(`Swapping ${fromAmount} ${fromToken} to ${toToken}`);
     // Update balances (example logic, real implementation will depend on backend/Web3 integration)
@@ -152,14 +161,14 @@ export default function AssetSwap() {
             <button
               onClick={handleSwap}
               disabled={invalidInput}
-              className={`font-orbitron w-full px-4 py-2 text-white rounded-md bg-primaryDark  disabled:opacity-50 disabled:cursor-not-allowed`}
+              className="font-orbitron w-full px-4 py-2 text-white rounded-md bg-primaryDark  disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Swap
             </button>
             :
             <button
               onClick={() => tonConnectUI.openModal()}
-              className={`font-orbitron w-full px-4 py-2 text-white rounded-md bg-primaryDark  disabled:opacity-50 disabled:cursor-not-allowed`}
+              className="font-orbitron w-full px-4 py-2 text-white rounded-md bg-primaryDark  disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Connect Wallet
             </button>

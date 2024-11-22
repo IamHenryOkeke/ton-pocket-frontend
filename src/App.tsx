@@ -16,6 +16,8 @@ import AssetSwap from "./pages/AssetSwap";
 import PreviewTipDetails from "./pages/PreviewTipDetails";
 import TipHome from "./pages/TipHome";
 import SendTip from "./pages/SendTip";
+import Deposit from "./pages/Deposit";
+import { MoonPayProvider } from "@moonpay/moonpay-react";
 
 const router = createBrowserRouter([
   {
@@ -41,6 +43,10 @@ const router = createBrowserRouter([
       {
         path: "asset-swap",
         element: <AssetSwap />,
+      },
+      {
+        path: "deposit",
+        element: <Deposit />,
       },
       {
         path: "pocket",
@@ -85,7 +91,12 @@ export default function App() {
           twaReturnUrl: `${process.env.NODE_ENV === "development" ? "http://localhost:3000/app/home" : "https://ton-pocket-frontend.vercel.app/app/home"}`
         }}
       >
-        <RouterProvider router={router} />
+        <MoonPayProvider
+          apiKey="pk_test_Z8IxrCcFiYAEv45mZEj1h8DkLonTTFs"
+          debug
+        >
+          <RouterProvider router={router} />
+        </MoonPayProvider>
       </TonConnectUIProvider>
     </div>
   )
