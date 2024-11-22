@@ -1,14 +1,9 @@
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import { TonConnectUIProvider } from '@tonconnect/ui-react';
+import { TonConnectUIProvider } from "@tonconnect/ui-react";
 
 import Home from "./pages/Home";
 import AppLayout from "./layouts/AppLayout";
-import CreatePocket from "./pages/CreatePocket";
-import PreviewPocket from "./pages/PreviewPocket";
 import StartupScreen from "./pages/StartupScreen";
 import GetStarted from "./pages/GetStarted";
 import Welcome from "./pages/Welcome";
@@ -16,6 +11,8 @@ import AssetSwap from "./pages/AssetSwap";
 import PreviewTipDetails from "./pages/PreviewTipDetails";
 import TipHome from "./pages/TipHome";
 import SendTip from "./pages/SendTip";
+import CreateGoal from "./pages/CreateGoal";
+import PreviewGoal from "./pages/PreviewGoal";
 
 const router = createBrowserRouter([
   {
@@ -43,15 +40,15 @@ const router = createBrowserRouter([
         element: <AssetSwap />,
       },
       {
-        path: "pocket",
+        path: "goal",
         children: [
           {
             path: "create",
-            element: <CreatePocket />,
+            element: <CreateGoal />,
           },
           {
             path: "preview",
-            element: <PreviewPocket />,
+            element: <PreviewGoal />,
           },
           {
             path: "tip",
@@ -62,17 +59,17 @@ const router = createBrowserRouter([
               },
               {
                 path: ":userName",
-                element: <PreviewTipDetails />
+                element: <PreviewTipDetails />,
               },
               {
                 path: ":userName/send-tip",
-                element: <SendTip />
-              }
-            ]
+                element: <SendTip />,
+              },
+            ],
           },
-        ]
-      }
-    ]
+        ],
+      },
+    ],
   },
 ]);
 
@@ -80,13 +77,21 @@ export default function App() {
   return (
     <div className="font-inter">
       <TonConnectUIProvider
-        manifestUrl={`${process.env.NODE_ENV === "development" ? "http://localhost:3000/" : "https://ton-pocket-frontend.vercel.app/"}tonconnect-manifest.json`}
+        manifestUrl={`${
+          process.env.NODE_ENV === "development"
+            ? "http://localhost:3000/"
+            : "https://ton-pocket-frontend.vercel.app/"
+        }tonconnect-manifest.json`}
         actionsConfiguration={{
-          twaReturnUrl: `${process.env.NODE_ENV === "development" ? "http://localhost:3000/app/home" : "https://ton-pocket-frontend.vercel.app/app/home"}`
+          twaReturnUrl: `${
+            process.env.NODE_ENV === "development"
+              ? "http://localhost:3000/app/home"
+              : "https://ton-pocket-frontend.vercel.app/app/home"
+          }`,
         }}
       >
         <RouterProvider router={router} />
       </TonConnectUIProvider>
     </div>
-  )
+  );
 }
