@@ -15,10 +15,19 @@ export default function Home() {
   const user = useTelegramUser();
 
   return (
-    <main onClick={() => { if (showQuickMenu) setShowQuickMenu(false) }} className="px-4 pt-10 pb-20 bg-primaryDark/20 space-y-5">
+    <main
+      onClick={() => {
+        if (showQuickMenu) setShowQuickMenu(false);
+      }}
+      className="px-4 pt-10 pb-20 bg-primaryDark/20 space-y-5"
+    >
       <div className="relative flex justify-between">
         <div className="flex items-center gap-2">
-          <img src={user?.photo_url || "/Profile.svg"} alt="Telegram" className="h-10 w-10 rounded-full"/>
+          <img
+            src={user?.photo_url || "/Profile.svg"}
+            alt="Telegram"
+            className="h-10 w-10 rounded-full"
+          />
           <div className="flex flex-col text-xs font-medium">
             <span>Hi, {user?.username || user?.first_name || "User"}</span>
             <span>Wellcome Back</span>
@@ -47,23 +56,30 @@ export default function Home() {
         <Button text="Deposit" variant="fill" />
       </div>
       <div>
-        <h3 className="font-bold text-xl mb-2">
-          Explore!
-        </h3>
+        <h3 className="font-bold text-xl mb-2">Explore!</h3>
         <div className="flex gap-5">
-          <Link to="/app/pocket/create" className="w-full flex flex-col gap-1 p-3 font-medium text-sm bg-white/30 border-2 border-white/30 rounded-[10px]">
+          <Link
+            to="/app/goal/create"
+            className="w-full flex flex-col gap-1 p-3 font-medium text-sm bg-white/30 border-2 border-white/30 rounded-[10px]"
+          >
             <GoPlusCircle className="h-5 w-5" />
             <p className="text-start">
-              Create <br /> tip pocket
+              Create <br /> a Goal
             </p>
           </Link>
-          <Link to="/app/pocket/tip" className="w-full flex flex-col gap-1 p-3 font-medium text-sm bg-primaryDark text-white border-2 border-white/30 rounded-[10px]">
+          <Link
+            to="/app/pocket/tip"
+            className="w-full flex flex-col gap-1 p-3 font-medium text-sm bg-primaryDark text-white border-2 border-white/30 rounded-[10px]"
+          >
             <img src="/Tip.svg" alt="" className="h-5 w-5" />
             <p className="text-start">
               Tip <br /> a friend
             </p>
           </Link>
-          <Link to="/app/asset-swap" className="w-full flex flex-col gap-1 p-3 font-medium text-sm bg-primaryDark text-white border-2 border-white/30 rounded-[10px]">
+          <Link
+            to="/app/asset-swap"
+            className="w-full flex flex-col gap-1 p-3 font-medium text-sm bg-primaryDark text-white border-2 border-white/30 rounded-[10px]"
+          >
             <IoSwapVerticalOutline className="h-5 w-5" />
             <p className="text-start">
               Asset <br /> swap
@@ -74,29 +90,85 @@ export default function Home() {
       <div>
         <div className="flex justify-between">
           <h3 className="text-xl">Transactions</h3>
-          <button className="rounded-lg px-4 text-sm border border-[#282828]">View more</button>
+          <button className="rounded-lg px-4 text-sm border border-[#282828]">
+            View more
+          </button>
         </div>
         <div className="mt-1 mb-4 space-y-3 divide-y-2 divide-black/50">
-          <TransactionPreviewCard status="Processed" date={new Date()} amount="1,500" description="Paid for akara" transactionType="debit" />
-          <TransactionPreviewCard status="Processed" date={new Date()} amount="500" description="Tip received" transactionType="credit" />
-          <TransactionPreviewCard status="Processed" date={new Date()} amount="1,500" description="Paid for akara" transactionType="debit" />
-          <TransactionPreviewCard status="Processed" date={new Date()} amount="1,500" description="Tip sent" transactionType="debit" />
-          <TransactionPreviewCard status="Processed" date={new Date()} amount="1,500" description="Paid for netflix" transactionType="debit" />
-          <TransactionPreviewCard status="Processed" date={new Date()} amount="1,500" description="Paid for plane fare" transactionType="debit" />
-          <TransactionPreviewCard status="Processed" date={new Date()} amount="1,500" description="Tip sent" transactionType="debit" />
-          <TransactionPreviewCard status="Processed" date={new Date()} amount="1,500" description="Paid for netflix" transactionType="debit" />
-          <TransactionPreviewCard status="Processed" date={new Date()} amount="1,500" description="Paid for plane fare" transactionType="debit" />
+          <TransactionPreviewCard
+            status="Processed"
+            date={new Date()}
+            amount="1,500"
+            description="Paid for akara"
+            transactionType="debit"
+          />
+          <TransactionPreviewCard
+            status="Processed"
+            date={new Date()}
+            amount="500"
+            description="Tip received"
+            transactionType="credit"
+          />
+          <TransactionPreviewCard
+            status="Processed"
+            date={new Date()}
+            amount="1,500"
+            description="Paid for akara"
+            transactionType="debit"
+          />
+          <TransactionPreviewCard
+            status="Processed"
+            date={new Date()}
+            amount="1,500"
+            description="Tip sent"
+            transactionType="debit"
+          />
+          <TransactionPreviewCard
+            status="Processed"
+            date={new Date()}
+            amount="1,500"
+            description="Paid for netflix"
+            transactionType="debit"
+          />
+          <TransactionPreviewCard
+            status="Processed"
+            date={new Date()}
+            amount="1,500"
+            description="Paid for plane fare"
+            transactionType="debit"
+          />
+          <TransactionPreviewCard
+            status="Processed"
+            date={new Date()}
+            amount="1,500"
+            description="Tip sent"
+            transactionType="debit"
+          />
+          <TransactionPreviewCard
+            status="Processed"
+            date={new Date()}
+            amount="1,500"
+            description="Paid for netflix"
+            transactionType="debit"
+          />
+          <TransactionPreviewCard
+            status="Processed"
+            date={new Date()}
+            amount="1,500"
+            description="Paid for plane fare"
+            transactionType="debit"
+          />
         </div>
       </div>
       <Navbar />
     </main>
-  )
+  );
 }
 
 type QuickMenuType = {
   isOpen: boolean;
   setIsOpen: any;
-}
+};
 
 function QuickMenu({ isOpen, setIsOpen }: QuickMenuType) {
   const sideNavRef = useRef<any>();
@@ -106,15 +178,22 @@ function QuickMenu({ isOpen, setIsOpen }: QuickMenuType) {
   });
   return (
     <>
-      {
-        isOpen && (
-          <div className="text-sm absolute space-y-2 right-8 top-8 px-2 py-3 bg-white rounded-lg">
-            <Link to="/app/tip" className="flex items-center gap-1"><RiBatterySaverLine className="h-5 w-5" />Save</Link>
-            <Link to="/app/tip" className="flex items-center gap-1"><GoPlusCircle className="h-5 w-5" />Create a tip pocket</Link>
-            <Link to="/app/tip" className="flex items-center gap-1"><img src="/TipDark.svg" alt="icon" className="h-5 w-5" />Add to tip pocket</Link>
-          </div>
-        )
-      }
+      {isOpen && (
+        <div className="text-sm absolute space-y-2 right-8 top-8 px-2 py-3 bg-white rounded-lg">
+          <Link to="/app/tip" className="flex items-center gap-1">
+            <RiBatterySaverLine className="h-5 w-5" />
+            Save
+          </Link>
+          <Link to="/app/tip" className="flex items-center gap-1">
+            <GoPlusCircle className="h-5 w-5" />
+            Create a tip pocket
+          </Link>
+          <Link to="/app/tip" className="flex items-center gap-1">
+            <img src="/TipDark.svg" alt="icon" className="h-5 w-5" />
+            Add to tip pocket
+          </Link>
+        </div>
+      )}
     </>
-  )
+  );
 }
