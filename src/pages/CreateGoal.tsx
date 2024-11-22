@@ -3,6 +3,10 @@ import * as Yup from "yup";
 import BackButton from "../components/back-button";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { API_ROUTES, customFormAxios } from "../routes/apiRoutes";
+import { useTelegramUser } from "../hooks/useTelegramUser";
+import Swal from "sweetalert2";
+import { TelegramUser } from "../lib/types";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string()
@@ -27,6 +31,7 @@ const validationSchema = Yup.object().shape({
 export default function CreateGoal() {
   const [preview, setPreview] = useState<any>(null);
   const navigate = useNavigate();
+  const user = useTelegramUser();
 
   return (
     <main className="h-fit px-4 pt-10 pb-20 bg-primaryDark/20 space-y-5">
@@ -47,10 +52,10 @@ export default function CreateGoal() {
           type: "Savings",
         }}
         validationSchema={validationSchema}
-        onSubmit={(values) => {
-          // console.log(values);
-          navigate("/app/goal/preview", {
-            state: {
+        onSubmit={async (values) => {
+          try {
+            // Log Goal Details on the backend
+            const goalDetails = {
               name: values.name,
               image: values.image,
               unique_id: values.unique_id,
@@ -60,8 +65,57 @@ export default function CreateGoal() {
               intervals: values.intervals,
               endDate: values.endDate,
               type: values.type,
-            },
-          });
+            };
+
+            if (!user?.id) {
+              Swal.fire({
+                icon: "error",
+                text: "Can't find telegram user...",
+              });
+              return;
+            }
+
+            const formData = new FormData();
+            formData.append("tel_id", (user as TelegramUser).id!.toString());
+            formData.append("name", goalDetails.name);
+            formData.append("unique_id", goalDetails.unique_id);
+            formData.append("description", goalDetails.description);
+            formData.append(
+              "targetAmount",
+              goalDetails.targetAmount.toString()
+            );
+            formData.append(
+              "recurringAmount",
+              goalDetails.recurringAmount.toString()
+            );
+            formData.append("intervals", goalDetails.intervals.toString());
+            formData.append(
+              "endDate",
+              new Date(goalDetails.endDate).toDateString()
+            );
+            formData.append("type", goalDetails.type);
+            formData.append("image", goalDetails.image as unknown as File);
+
+            const { data } = await customFormAxios().post(
+              API_ROUTES.goal.create,
+              formData
+            );
+
+            navigate("/app/goal/preview", {
+              state: data.data,
+            });
+          } catch (error) {
+            console.log(error);
+            const errMsg =
+              (error as any)?.response?.data?.error?.message ||
+              (error as any)?.message ||
+              "Something went wrong";
+
+            Swal.fire({
+              icon: "error",
+              text: errMsg,
+            });
+          }
         }}
       >
         {({ setFieldValue, isValid, dirty }) => (

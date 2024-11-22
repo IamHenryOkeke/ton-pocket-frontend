@@ -25,4 +25,7 @@ export const API_ROUTES = {
     update: "/user/profile/", // + :tel_id
     register: "/user/register",
   },
+  goal: {
+    create: "/goals/create",
+  },
 };

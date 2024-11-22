@@ -12,7 +12,7 @@ export default function PreviewGoal() {
   const location = useLocation();
   const {
     name,
-    image,
+    image_url,
     unique_id,
     description,
     targetAmount,
@@ -21,15 +21,8 @@ export default function PreviewGoal() {
     endDate,
     type,
   } = location.state || {};
-
-  const [imgSrc, setImgSrc] = useState<any>("");
   const [isCreated] = useState(false);
-
-  if (image) {
-    const reader = new FileReader();
-    reader.onloadend = () => setImgSrc(reader.result);
-    reader.readAsDataURL(image);
-  }
+  console.table(location.state);
 
   return (
     <main className="px-4 py-10 pb-10 bg-primaryDark/20">
@@ -43,7 +36,7 @@ export default function PreviewGoal() {
             <div className="space-y-4">
               <div>
                 <img
-                  src={imgSrc}
+                  src={image_url}
                   alt=""
                   className="flex items-center justify-center w-full h-48 bg-white/30 border border-dashed border-gray-400 rounded-lg cursor-pointer"
                 />
@@ -65,7 +58,7 @@ export default function PreviewGoal() {
                   <span>{toMoney(recurringAmount)}</span>
                 </div>
                 <div className="pb-5 pt-2 flex justify-between border-b-[2px] border-[#606060]">
-                  <span>Savings completion date</span>
+                  <span>Complete goal before</span>
                   <span>
                     {endDate
                       ? dayjs(new Date(endDate)).format("LL")
