@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Orbitron:wght@400..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Orbitron:wght@400..900&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -10,6 +10,11 @@
   border-color: white transparent transparent transparent;
   border-radius: 50%;
   animation: spin 1s linear infinite;
+}
+
+@font-face {
+  font-family: "tnr-bold";
+  src: url("./assets/fonts/times-new-romans/times\ new\ roman\ bold.ttf");
 }
 
 @keyframes spin {

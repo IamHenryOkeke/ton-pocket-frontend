@@ -1,19 +1,33 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import BackButton from "../components/back-button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import useAppState from "../hooks/useAppState";
+import Keypad from "../components/numberKeypad";
 
 export default function SendTip() {
   const [isSent] = useState(false);
   const { userName } = useParams();
+  const navigate = useNavigate();
+  const tipWallet = useAppState((state) => state.tipWallet);
+
+  useEffect(() => {
+    if (!tipWallet?.id || !tipWallet?.user) navigate("/app/tip");
+  }, [navigate, tipWallet?.id, tipWallet?.user]);
 
   return (
-    <main className="h-screen px-4 py-10 pb-10 bg-primaryDark/20">
+    <main className={"h-screen bg-primaryDark/20"}>
       {!isSent ? (
-        <div>
-          <div className="flex items-center mb-5">
+        <div className="flex flex-col justify-between h-full w-full">
+          <div className="flex px-4 pt-5 items-center mb-5">
             <BackButton />
-            <h3 className="text-center w-full">{userName}</h3>
+            <h3 className="text-center w-full font-bold">
+              {tipWallet?.Goal
+                ? `${tipWallet?.user?.username}'s Goal - (${tipWallet?.Goal?.[0]?.name})`
+                : `${tipWallet?.user?.username}'s Pocket`}
+            </h3>
           </div>
+
+          <Keypad />
         </div>
       ) : (
         <TipSent userName={userName} />
