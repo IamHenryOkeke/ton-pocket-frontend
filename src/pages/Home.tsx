@@ -68,7 +68,7 @@ export default function Home() {
             </p>
           </Link>
           <Link
-            to="/app/pocket/tip"
+            to="/app/tip/user"
             className="w-full flex flex-col gap-1 p-3 font-medium text-sm bg-primaryDark text-white border-2 border-white/30 rounded-[10px]"
           >
             <img src="/Tip.svg" alt="" className="h-5 w-5" />

@@ -1,5 +1,10 @@
 import { create } from "zustand";
-import { AppUser, ContractPocket, TelegramUser } from "../lib/types";
+import {
+  AppUser,
+  ContractPocket,
+  TelegramUser,
+  UserWallet,
+} from "../lib/types";
 
 export type AppState = {
   telegramUser?: TelegramUser;
@@ -7,12 +12,14 @@ export type AppState = {
   userChecked: boolean; // We use this to know when the backed has checked if a user exists.
   pocketDetails?: ContractPocket | null;
   pocketChecked: boolean; // So we know when the smart contract has been called to retrieve user wallet.
+  tipWallet?: UserWallet;
 
   setPocketChecked: (pocketChecked: boolean) => void;
   setTelegramUser: (telegramUser: TelegramUser) => void;
   setPocketDetails: (pocketDetails: ContractPocket | null) => void;
   setAppUser: (appUser: AppUser) => void;
   setUserChecked: (userChecked: boolean) => void;
+  setTipWallet: (wallet: UserWallet) => void;
 };
 
 const useAppState = create<AppState>()((set) => ({
@@ -29,6 +36,7 @@ const useAppState = create<AppState>()((set) => ({
   setPocketChecked: (pocketChecked: boolean) => set(() => ({ pocketChecked })),
   setPocketDetails: (pocketDetails: ContractPocket | null) =>
     set(() => ({ pocketDetails })),
+  setTipWallet: (tipWallet: UserWallet) => set(() => ({ tipWallet })),
 }));
 
 export default useAppState;

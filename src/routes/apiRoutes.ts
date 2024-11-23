@@ -28,4 +28,8 @@ export const API_ROUTES = {
   goal: {
     create: "/goals/create",
   },
+  tip: {
+    user: "/tip/user/", // + :username
+    goal: "/tip/goal/", // + :unique_id
+  },
 };

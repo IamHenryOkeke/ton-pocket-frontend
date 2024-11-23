@@ -50,8 +50,17 @@ const router = createBrowserRouter([
             path: "preview",
             element: <PreviewGoal />,
           },
+        ],
+      },
+      {
+        path: "tip",
+        children: [
           {
-            path: "tip",
+            path: "",
+            element: <TipHome />,
+          },
+          {
+            path: "user",
             children: [
               {
                 path: "",
@@ -63,6 +72,23 @@ const router = createBrowserRouter([
               },
               {
                 path: ":userName/send-tip",
+                element: <SendTip />,
+              },
+            ],
+          },
+          {
+            path: "goal",
+            children: [
+              {
+                path: "",
+                element: <TipHome />,
+              },
+              {
+                path: ":goalId",
+                element: <PreviewTipDetails />,
+              },
+              {
+                path: ":goalId/send-tip",
                 element: <SendTip />,
               },
             ],

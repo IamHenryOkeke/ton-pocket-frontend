@@ -21,7 +21,9 @@ const validationSchema = Yup.object().shape({
     .moreThan(0, "Recuring must be more than 0"),
   intervals: Yup.number().required("Intervals is required"),
   type: Yup.string().required("Type is required"),
-  unique_id: Yup.string().optional(),
+  unique_id: Yup.string()
+    .optional()
+    .min(3, "Username must be at least 3 characters"),
   description: Yup.string()
     .optional()
     .max(50, "Description must be less than 50 characters"),
