@@ -73,7 +73,7 @@ export default function AssetSwap() {
   const conversionRates = {
     USDT_TO_TON: 0.5,
     TON_TO_USDT: 2,
-  };
+  }
 
   // Update the 'toAmount' based on 'fromAmount'
   useEffect(() => {
